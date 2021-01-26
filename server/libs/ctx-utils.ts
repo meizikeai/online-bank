@@ -6,7 +6,7 @@
  *   - phone       {Boolean}     判断终端环境
  */
 import { Context } from 'koa'
-import isPhone from './is-phone'
+import isPhone from '../utils/is-phone'
 
 interface OptionsConfig {
   ctx: Context

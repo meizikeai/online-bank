@@ -12,10 +12,10 @@ export const isLocalPro = dev === 'localPro'
 export const emailRule = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/
 
 // 密码密钥
-export const encryptKey = 'CuEVLjGfLaqC8y8p9OTGyg=='
+export const encryptKey = 'CuEBljGfLaQC6y5p28tGyd=='
 
 // token密钥
-export const secretKey = '4vPk7fB0HcwL5V9E2AErHuR19HM389eYqdvQcndM'
+export const secretKey = '9vak7FB2HcWL6V9E2afrHurb7HM368eYdevQcedo'
 
 // 默认密码
-export const passwordKey = 'blued@123'
+export const passwordKey = 'bank@123'

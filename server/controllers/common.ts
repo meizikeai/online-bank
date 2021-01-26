@@ -1,6 +1,9 @@
 import { Context } from 'koa'
+import jwt from 'jsonwebtoken'
+
 import ctxUtils from '../libs/ctx-utils'
-import { getAnchor, getUser } from '../models/common'
+import { getWhoishe } from '../models/login'
+import { secretKey } from '../config/env'
 
 export default class GeneralController {
   public static async home(ctx: Context) {
@@ -14,9 +17,6 @@ export default class GeneralController {
         answer: 'Is you?',
       }),
     }
-
-    await getAnchor()
-    await getUser()
 
     await ctx.render('index')
   }
@@ -60,6 +60,46 @@ export default class GeneralController {
     } else {
       ctx.type = 'text'
       ctx.body = 'Forbidden'
+    }
+  }
+
+  public static async auth(ctx: Context, next: () => void) {
+    const { authorization } = ctx.request.header
+    const { method } = ctx.request
+
+    if (method !== ' OPTIONS') {
+      let verified = false
+
+      if (authorization && authorization !== 'null') {
+        try {
+          // 请不要使用jwt.verify的第三个参数
+          // 如果存在第三个参数（回调），则此方法为异步操作
+          // https://www.npmjs.com/package/jsonwebtoken
+          const decoded: any = jwt.verify(authorization, secretKey)
+          const people = await getWhoishe({ email: decoded.email })
+          // console.log(people)
+          // console.log(decoded)
+
+          if (people.status === 1) {
+            verified = true
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+
+      if (!verified) {
+        ctx.body = {
+          code: 401,
+          message: 'Invalid login credentials, please log in again.',
+        }
+
+        return false
+      }
+
+      await next()
+    } else {
+      await next()
     }
   }
 }

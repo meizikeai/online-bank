@@ -5,6 +5,7 @@ import 'whatwg-fetch'
 
 import Header from '../header'
 import Footer from '../footer'
+import SiderMenu from '../sider-menu'
 
 import 'antd/dist/antd.css'
 
@@ -15,14 +16,22 @@ class APP extends Component {
   }
 
   render() {
-    const { children, selectKey } = this.props
+    const { breadcrumb, selectKey, children } = this.props
 
     return (
-      <Layout className='layout'>
+      <Layout>
         <Layout.Header>
-          <Header selectKey={selectKey} />
+          <Header />
         </Layout.Header>
-        <Layout.Content style={{ padding: '0 50px' }}>{children}</Layout.Content>
+        <Layout.Content style={{ padding: '0 50px' }}>
+          {breadcrumb}
+          <Layout className='site-layout-background'>
+            <Layout.Sider className='site-layout-background' width={200}>
+              <SiderMenu selectKey={selectKey} />
+            </Layout.Sider>
+            <Layout.Content style={{ minHeight: 280 }}>{children}</Layout.Content>
+          </Layout>
+        </Layout.Content>
         <Layout.Footer>
           <Footer />
         </Layout.Footer>
@@ -32,6 +41,7 @@ class APP extends Component {
 }
 
 APP.propTypes = {
+  breadcrumb: PropTypes.node,
   selectKey: PropTypes.string,
   children: PropTypes.node,
 }

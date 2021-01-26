@@ -6,7 +6,7 @@ async function getAnchor() {
 
   const selectSQL = `SELECT * FROM users limit 0 ,10`
   const result = await commonMySQL.query(selectSQL).catch((err: any) => {
-    logger.error(err, { tips: 'test -> query error' })
+    logger.error(err, { tips: 'common.ts -> getAnchor' })
   })
 
   logger.info({ notice: result })
@@ -18,7 +18,7 @@ async function getUser() {
   const commonRedis = redisClient('commonRedis')
 
   const result = await commonRedis.hgetall('u:113').catch((err: any) => {
-    logger.error(err, { tips: 'test -> query error' })
+    logger.error(err, { tips: 'common.ts -> getUser' })
   })
 
   logger.info({ notice: result })

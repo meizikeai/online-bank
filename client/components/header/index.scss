@@ -1,0 +1,31 @@
+.bank-header {
+  height: 64px;
+
+  .logo {
+    width: 131px;
+    float: left;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .type {
+    float: left;
+  }
+
+  .admin {
+    float: right;
+
+    .users {
+      display: inline-block;
+      width: 50px;
+      text-align: center;
+
+      span {
+        display: inline-block;
+        color: #fff;
+      }
+    }
+  }
+}

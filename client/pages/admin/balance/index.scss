@@ -1,0 +1,80 @@
+.bank-admin-balance {
+  min-height: 600px;
+  padding: 16px;
+  background-color: #fff;
+
+  .title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d7d7d7;
+  }
+
+  .box-one {
+    padding-top: 25px;
+
+    .one,
+    .two {
+      margin-bottom: 15px;
+      text-align: center;
+
+      .aa {
+        display: block;
+        color: #666;
+      }
+
+      .bb {
+        font-weight: 700;
+        font-size: 28px;
+      }
+    }
+
+    .two {
+      .bb {
+        font-size: 24px;
+      }
+    }
+
+    .san {
+      display: flex;
+
+      .three {
+        width: 50%;
+        border: 1px solid #d7d7d7;
+        border-radius: 6px;
+        padding: 15px 15px 0;
+        margin: 0 10px;
+
+        .h4 {
+          font-weight: 700;
+        }
+
+        ul {
+          padding-left: 0;
+
+          li {
+            list-style: none;
+            line-height: 40px;
+            border-bottom: 1px solid #d7d7d7;
+            display: flex;
+
+            .type {
+              font-weight: 700;
+            }
+
+            .let {
+              width: 50%;
+            }
+
+            .rig {
+              width: 50%;
+              text-align: right;
+            }
+
+            &:last-child {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
