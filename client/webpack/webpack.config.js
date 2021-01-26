@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const QiniuPlugin = require('qiniu-webpack-plugin')
+// const QiniuPlugin = require('qiniu-webpack-plugin')
 const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { dll, isDirectory, manifest, qiniu } = require('./config')
@@ -103,18 +103,18 @@ const compressionPlugin = new CompressionWebpackPlugin({
   minRatio: 0.8,
 })
 
-const qiniuPlugin = new QiniuPlugin({
-  ACCESS_KEY: qiniu.accessKey,
-  SECRET_KEY: qiniu.secretKey,
-  bucket: qiniu.bucket,
-  path: 'web/static/',
-  include: [
-    /\.js$/,
-    /\.js.gz$/,
-    /\.css$/,
-    /\.css.gz$/,
-  ],
-})
+// const qiniuPlugin = new QiniuPlugin({
+//   ACCESS_KEY: qiniu.accessKey,
+//   SECRET_KEY: qiniu.secretKey,
+//   bucket: qiniu.bucket,
+//   path: 'web/static/',
+//   include: [
+//     /\.js$/,
+//     /\.js.gz$/,
+//     /\.css$/,
+//     /\.css.gz$/,
+//   ],
+// })
 
 const htmlWebpack = paths => {
   const result = paths.map(data => {
@@ -200,9 +200,9 @@ module.exports = (env, argv) => {
       tags: file,
     }
 
-    if (argv.mode !== 'production') {
-      tags.publicPath = '/dll/'
-    }
+    // if (argv.mode !== 'production') {
+    tags.publicPath = '/dll/'
+    // }
 
     config.plugins.push(new HtmlWebpackTagsPlugin(tags))
   })
@@ -215,11 +215,13 @@ module.exports = (env, argv) => {
 
   if (argv.mode === 'production') {
     config.devtool = false
-    config.output.publicPath = `${qiniu.cdnBase}/web/static/`
+    config.output.path = path.resolve(__dirname, '../../public/source')
+    config.output.publicPath = '/source/'
+    // config.output.publicPath = `${qiniu.cdnBase}/web/static/`
     config.optimization.minimize = true
     config.plugins.push(new CleanWebpackPlugin())
     config.plugins.push(compressionPlugin)
-    config.plugins.push(qiniuPlugin)
+    // config.plugins.push(qiniuPlugin)
   } else {
     config.devtool = 'inline-source-map'
     config.watch = true
