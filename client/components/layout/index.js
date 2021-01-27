@@ -44,6 +44,33 @@ class APP extends Component {
         </Layout.Header>
         <Layout.Content>{children}</Layout.Content>
         <Layout.Footer>
+          <div className='foot-container'>
+            <div className='container'>
+              <span className='text'>
+                <a href='/'>关于银行</a>
+              </span>
+              <span className='line'>|</span>
+              <span className='text'>
+                <a href='/'>联系我们</a>
+              </span>
+              <span className='line'>|</span>
+              <span className='text'>
+                <a href='/'>安全指引</a>
+              </span>
+              <span className='line'>|</span>
+              <span className='text'>
+                <a href='/'>银行信用卡</a>
+              </span>
+              <span className='line'>|</span>
+              <span className='text'>
+                <a href='/'>银行APP</a>
+              </span>
+              <span className='line'>|</span>
+              <span className='text'>
+                <a href='/'>企业专业版</a>
+              </span>
+            </div>
+          </div>
           <Footer />
         </Layout.Footer>
       </Layout>

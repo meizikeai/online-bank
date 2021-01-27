@@ -161,3 +161,29 @@
     }
   }
 }
+
+.foot-container {
+  width: 980px;
+  margin: 0 auto;
+
+  .container {
+    text-align: center;
+
+    span {
+      display: inline-block;
+      line-height: 50px;
+
+      &.text {
+        padding: 0 20px;
+      }
+
+      &.line {
+        color: #999;
+      }
+
+      a {
+        color: #666;
+      }
+    }
+  }
+}
