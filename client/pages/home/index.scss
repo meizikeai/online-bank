@@ -1,1 +1,163 @@
 // https://web.bldimg.com/cblued/static/banner-2.1esqhheor2sh7fp.jpg
+
+.ant-layout-header {
+  height: 90px;
+  background-color: #fff;
+  padding: 0;
+}
+
+.ant-layout-footer {
+  background-color: #fff;
+}
+
+.login-header {
+  width: 980px;
+  margin: 0 auto;
+  display: flex;
+  height: 90px;
+
+  .header-logo {
+    width: 50%;
+    display: flex;
+
+    .logo {
+      width: 185px;
+      height: 90px;
+      background-image: url(https://web.bldimg.com/cblued/static/logo-2.1esqhheii13k1ih.jpg);
+      background-size: 181px 90px;
+      background-repeat: no-repeat;
+
+      a {
+        display: block;
+        width: 185px;
+        height: 90px;
+      }
+    }
+
+    .tips {
+      padding-top: 20px;
+
+      div {
+        height: 28px;
+        line-height: 28px;
+      }
+
+      P {
+        height: 22px;
+        line-height: 22px;
+        margin-bottom: 0;
+        color: #868a8f;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .header-link {
+    width: 50%;
+    text-align: right;
+    padding-top: 15px;
+
+    span {
+      display: inline-block;
+      padding-left: 20px;
+    }
+  }
+}
+
+.nav {
+  background: #BE0018;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+
+  .nav_list {
+    width: 980px;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .nav_item span a {
+    display: block;
+    padding: 0 26px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+
+    &:hover {
+      background-color: #a60015;
+    }
+  }
+}
+
+.banner {
+  width: 100%;
+  height: 300px;
+  background-image: url(https://web.bldimg.com/cblued/static/banner-2.1esqhheor2sh7fp.jpg);
+  background-position: center 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.news {
+  width: 100%;
+  // background-color: #fff;
+
+  .news-box {
+    width: 980px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+
+    .names {
+      padding-top: 30px;
+    }
+
+    .box_news {
+      width: 100%;
+      background-color: #fff;
+      padding: 16px;
+      border-radius: 5px;
+
+      .bxeegg {
+        display: flex;
+
+        .avator {
+          width: 330px;
+          height: 240px;
+          background-color: #f5f5f5;
+          margin-right: 30px;
+        }
+      }
+
+      .news_list {
+        width: 588px;
+
+        .one {
+          width: 100%;
+          height: 74px;
+          padding-top: 10px;
+          border-bottom: 1px solid #E8E8E8;
+          font-size: 18px;
+          font-weight: 700;
+          overflow: hidden;
+          margin-bottom: 15px;
+        }
+
+        .news_item {
+          height: 36px;
+          line-height: 36px;
+          font-size: 14px;
+          overflow: hidden;
+
+          a {
+            color: #666;
+            font-weight: 700;
+          }
+
+          span {
+            float: right;
+          }
+        }
+      }
+    }
+  }
+}

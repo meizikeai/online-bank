@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Layout } from 'antd'
 import 'whatwg-fetch'
 
-import Header from '../header'
 import Footer from '../footer'
 
 import 'antd/dist/antd.css'
@@ -15,14 +14,35 @@ class APP extends Component {
   }
 
   render() {
-    const { children, selectKey } = this.props
+    const { children } = this.props
 
     return (
       <Layout className='layout'>
         <Layout.Header>
-          <Header selectKey={selectKey} />
+          <div className='login-header'>
+            <div className='header-logo'>
+              <div className='logo'>
+                <a href='/'></a>
+              </div>
+              <div className='tips'>
+                <div>个人银行专业版</div>
+                <p>客服热线：95558</p>
+              </div>
+            </div>
+            <div className='header-link'>
+              <span>
+                <a href='/'>常见问题</a>
+              </span>
+              <span>
+                <a href='/'>在线客服</a>
+              </span>
+              <span>
+                <a href='/login'>登录</a>
+              </span>
+            </div>
+          </div>
         </Layout.Header>
-        <Layout.Content style={{ padding: '0 50px' }}>{children}</Layout.Content>
+        <Layout.Content>{children}</Layout.Content>
         <Layout.Footer>
           <Footer />
         </Layout.Footer>

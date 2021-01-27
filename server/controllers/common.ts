@@ -1,24 +1,16 @@
 import { Context } from 'koa'
 import jwt from 'jsonwebtoken'
 
-import ctxUtils from '../libs/ctx-utils'
 import { getWhoishe } from '../models/login'
 import { secretKey } from '../config/env'
 
 export default class GeneralController {
   public static async home(ctx: Context) {
-    const { device } = ctxUtils({ ctx })
-
     ctx.state = {
-      title: 'Hello Koa 2!',
-      device: device ? 'Personal Computer' : 'Mobile Phone',
-      config: JSON.stringify({
-        question: 'Who is my love?',
-        answer: 'Is you?',
-      }),
+      title: '网上银行门户-首页',
     }
 
-    await ctx.render('index')
+    await ctx.render('home')
   }
 
   public static async notfound(ctx: Context, next: () => void) {
