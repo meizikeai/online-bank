@@ -6,14 +6,14 @@ import { mysqlClient } from '../libs/connect'
 
 // 获取用户信息
 async function getWhoishe({ email }: { email: string }) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
     SELECT id, name, email, type, status, cipher, salt, password, createtime
     FROM users
     WHERE email = '${email}'
   `
   // console.log(sql)
-  const [result] = await commonMySQL.query(sql).catch((err: any) => {
+  const [result] = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'login.ts -> getWhoishe' })
   })
 

@@ -26,14 +26,14 @@ interface UpdatePassWord {
   password: string
 }
 async function updatePassWord({ email, password }: UpdatePassWord) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
     UPDATE users 
     SET password = '${password}', cipher = 0
     WHERE email = '${email}'
   `
   // console.log(sql)
-  await commonMySQL.query(sql).catch((err: any) => {
+  await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> updatePassWord' })
   })
 }
@@ -44,7 +44,7 @@ interface GetUserInfo {
 }
 
 async function getUserInfo({ email }: GetUserInfo) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
     SELECT id, name, national, gender, idcard, phone, address, postcode
     FROM userinfo
@@ -52,7 +52,7 @@ async function getUserInfo({ email }: GetUserInfo) {
   `
 
   // console.log(sql)
-  const [result] = await commonMySQL.query(sql).catch((err: any) => {
+  const [result] = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> getUserInfo' })
   })
 
@@ -71,14 +71,14 @@ interface SetUserInfo {
   postcode: string
 }
 async function setUserInfo({ email, name, national, gender, idcard, phone, address, postcode }: SetUserInfo) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
     UPDATE userinfo 
     SET name = '${name}', national = '${national}', gender = '${gender}', idcard = '${idcard}', phone = '${phone}', address = '${address}', postcode = '${postcode}'
     WHERE email = '${email}'
   `
   // console.log(sql)
-  await commonMySQL.query(sql).catch((err: any) => {
+  await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> setUserInfo' })
   })
 }
@@ -89,7 +89,7 @@ interface GetBalance {
 }
 
 async function getBalance({ email }: GetBalance) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
     SELECT id, card, money, earning, financial, gold, available, overdraft, repayment
     FROM balance
@@ -97,7 +97,7 @@ async function getBalance({ email }: GetBalance) {
   `
 
   // console.log(sql)
-  const [result] = await commonMySQL.query(sql).catch((err: any) => {
+  const [result] = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> getBalance' })
   })
 
@@ -110,14 +110,14 @@ interface UpdateBalance {
   money: number
 }
 async function updateBalance({ email, money }: UpdateBalance) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
     UPDATE balance 
     SET money = '${money}'
     WHERE email = '${email}'
   `
   // console.log(sql)
-  await commonMySQL.query(sql).catch((err: any) => {
+  await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> updateBalance' })
   })
 }
@@ -132,7 +132,7 @@ interface AddTransfer {
   purpose: string
 }
 async function addTransfer({ email, account, money, card, channel, purpose }: AddTransfer) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
     INSERT INTO trading 
       (id, email, uses, money, card, channel, type,  note)
@@ -140,7 +140,7 @@ async function addTransfer({ email, account, money, card, channel, purpose }: Ad
       (null, '${email}', '${account}', ${money}, '${card}', '${channel}', '${purpose || '转帐'}', '/')
     `
   // console.log(sql)
-  await commonMySQL.query(sql).catch((err: any) => {
+  await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> addTransfer' })
   })
 }
@@ -150,7 +150,7 @@ interface GeTransfer {
   email: string
 }
 async function geTransfer({ email }: GeTransfer) {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
   const sql = `
       SELECT id, uses, money, card, channel, type, note, datetime
       FROM trading
@@ -158,7 +158,7 @@ async function geTransfer({ email }: GeTransfer) {
       ORDER BY datetime DESC
     `
   // console.log(sql)
-  const result = await commonMySQL.query(sql).catch((err: any) => {
+  const result = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> geTransfer' })
   })
 

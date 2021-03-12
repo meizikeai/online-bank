@@ -51,7 +51,7 @@ class App extends Component {
           message.success(res.message)
 
           if (res.code === 302) {
-            window.location.href = '/admin/password'
+            window.location.href = '/admin'
           } else {
             window.location.href = '/'
           }

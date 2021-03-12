@@ -2,10 +2,10 @@ import logger from '../libs/logger'
 import { mysqlClient, redisClient } from '../libs/connect'
 
 async function getAnchor() {
-  const commonMySQL = mysqlClient('commonMySQL')
+  const defaultMySQL = mysqlClient('default')
 
   const selectSQL = `SELECT * FROM users limit 0 ,10`
-  const result = await commonMySQL.query(selectSQL).catch((err: any) => {
+  const result = await defaultMySQL.query(selectSQL).catch((err: any) => {
     logger.error(err, { tips: 'common.ts -> getAnchor' })
   })
 
@@ -15,9 +15,9 @@ async function getAnchor() {
 }
 
 async function getUser() {
-  const commonRedis = redisClient('commonRedis')
+  const defaultRedis = redisClient('default')
 
-  const result = await commonRedis.hgetall('u:113').catch((err: any) => {
+  const result = await defaultRedis.hgetall('u:113').catch((err: any) => {
     logger.error(err, { tips: 'common.ts -> getUser' })
   })
 

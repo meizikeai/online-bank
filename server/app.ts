@@ -84,9 +84,11 @@ app.use(async (ctx, next) => {
     return false
   }
 
+  const proto = ctx.request.header['x-forwarded-proto'] || ''
+
   const error = !/404$|403$/gi.test(ctx.path)
   const method = /get/gi.test(ctx.request.method)
-  const protocol = /http$/gi.test(ctx.request.header['x-forwarded-proto'])
+  const protocol = /http$/gi.test(proto.toString())
 
   if (isPro && error && method && protocol) {
     ctx.redirect(ctx.request.href.replace(/^http:/gi, 'https:'))
