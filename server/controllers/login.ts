@@ -4,7 +4,7 @@ import { Context } from 'koa'
 import logger from '../libs/logger'
 import { emailRule, secretKey } from '../config/env'
 import { getWhoishe, handleAuthenticate } from '../models/login'
-import { getEncryption } from '../models/admin'
+// import { getEncryption } from '../models/admin'
 
 export default class Login {
   public static async home(ctx: Context) {
@@ -14,13 +14,13 @@ export default class Login {
 
     // 目前不开放注册
     // 半个密钥 及 密码生成方法
-    const result = getEncryption({})
-    console.log(result)
+    // const result = getEncryption({})
+    // console.log(result)
 
     await ctx.render('login')
   }
 
-  // 默认帐号 admin@bank.com
+  // 默认帐号 admin@bank.com / test@bank.com
   // 默认密码 bank@123
   public static async login(ctx: Context) {
     const result = {
@@ -30,13 +30,16 @@ export default class Login {
     }
 
     try {
-      const { email, password } = ctx.request.body
+      const body = ctx.request.body
+      const email = String(body.email)
+      const password = String(body.password)
+      // console.log(email, password)
 
       if (!email || !password || !emailRule.test(email)) {
         return false
       }
 
-      const people = await getWhoishe({ email })
+      const people = await getWhoishe({ email: email })
       // console.log(people)
 
       if (!(people && people.password)) {
@@ -50,7 +53,7 @@ export default class Login {
       const verify = handleAuthenticate({
         storageSalt: people.salt,
         storagePassword: people.password,
-        password,
+        password: password,
       })
       // console.log(verify)
 

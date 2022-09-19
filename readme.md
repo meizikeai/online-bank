@@ -10,15 +10,15 @@ https://github.com/meizikeai/online-bank.git
 
 #### 项目结构
 
-| 路径          | 描述               | 详情 |
-| ------------- | ------------------ | ---- |
-| client        | react.js           | --   |
-| pm2           | pm2.keymetrics.io  | --   |
-| public        | koa-static         | --   |
-| server        | koa.js / typescriptlang.org   | --   |
-| views         | koa-views          | --   |
-| package.json  | package.json       | --   |
-| tsconfig.json | typescriptlang.org | --   |
+| 路径          | 描述                        | 详情 |
+|---------------|-----------------------------|------|
+| client        | react.js                    | --   |
+| pm2           | pm2.keymetrics.io           | --   |
+| public        | koa-static                  | --   |
+| server        | koa.js / typescriptlang.org | --   |
+| views         | koa-views                   | --   |
+| package.json  | package.json                | --   |
+| tsconfig.json | typescriptlang.org          | --   |
 
 #### 开发环境
 
@@ -31,9 +31,10 @@ https://github.com/meizikeai/online-bank.git
 #### 数据相关
 
   + 本实例使用**MySQL**进行开发（默认Mac环境），安装见 https://dev.mysql.com/downloads/mysql。
-  + 本实例与数据库的配置，见 **server/config/development.ts**（测试环境）**与 server/config/production.ts**（正式环境）文件。本实例支持**Redis**，但实例未使用，具体也见此条提到的配置文件。
+  + 本实例与数据库的配置，见 **与 server/config/release-mysql.ts / test-mysql.ts** 文件。本实例支持**Redis**，但实例未使用，具体也见此条提到的配置文件。
   + 本实例使用到的表，见 **server/config/sql.sql** 文件，有已存档的创建表及插入初始数据的sql语句。
   + 本实例使用公共变量，见 **server/config/env.ts** 文件，包括鉴权使用到的token密钥、加密密码用的密钥，默认密码提示等。
+  + 默认帐号 admin@bank.com / test@bank.com 默认密码 bank@123
 
 #### 访问地址
 

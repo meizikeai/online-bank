@@ -35,8 +35,17 @@ export default class Admin {
     const result = { code: 200, data: {}, message: '更新成功' }
 
     try {
-      const { name, national, gender, idcard, phone, address, postcode } = ctx.request.body
+      const body = ctx.request.body
       const decoded = authorize(ctx)
+
+      const name = String(body.name)
+      const national = String(body.national)
+      const gender = String(body.gender)
+      const idcard = String(body.idcard)
+      const phone = String(body.phone)
+      const address = String(body.address)
+      const postcode = String(body.postcode)
+
       const pass = Boolean(name && national && gender && idcard && phone && address && postcode)
 
       if (pass && decoded && decoded.email) {

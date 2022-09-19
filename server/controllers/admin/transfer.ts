@@ -28,8 +28,8 @@ export default class AdminTransfer {
         const [meInfo, meBalance, targetInfo, targetBalance] = await Promise.all([
           await getWhoishe({ email: decoded.email }),
           await getBalance({ email: decoded.email }),
-          await getWhoishe({ email: account }),
-          await getBalance({ email: account }),
+          await getWhoishe({ email: account + '' }),
+          await getBalance({ email: account + '' }),
         ])
         // console.log(meInfo, meBalance, targetInfo, targetBalance)
 
@@ -37,14 +37,14 @@ export default class AdminTransfer {
           await Promise.all([
             await addTransfer({
               email: decoded.email,
-              account,
-              money,
+              account: account + '',
+              money: Number(money),
               card: meBalance.card,
               channel: '中国银联',
               purpose: '',
             }),
-            await updateBalance({ email: decoded.email, money: meBalance.money - money }),
-            await updateBalance({ email: account, money: Number(targetBalance.money) + Number(money) }),
+            await updateBalance({ email: decoded.email, money: meBalance.money - Number(money) }),
+            await updateBalance({ email: account + '', money: Number(targetBalance.money) + Number(money) }),
           ])
         } else {
           result.code = 400

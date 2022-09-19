@@ -1,5 +1,12 @@
 const datum: {
-  [key: string]: { master: Array<string>; slave: Array<string>; username: string; password: string; database: string }
+  [key: string]: {
+    master: Array<string>
+    slave: Array<string>
+    username: string
+    password: string
+    database: string
+    connection?: number
+  }
 } = {
   default: {
     master: ['127.0.0.1:3306'],

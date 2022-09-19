@@ -4,7 +4,7 @@ import { Context } from 'koa'
 import authorize from '../../libs/authorize'
 import logger from '../../libs/logger'
 import { geTransfer } from '../../models/admin'
-import { toPretty } from '../../utils/to-string'
+import { toPretty } from '../../libs/to-string'
 
 export default class AdminHome {
   public static async trading(ctx: Context) {

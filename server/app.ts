@@ -11,12 +11,15 @@ import path from 'path'
 import serve from 'koa-static'
 import views from 'koa-views'
 
-import raven from './libs/raven'
 import handleRouter from './system/control/handle-router'
+import { awaitZookeeper, handleZookeeper } from './libs/zookeeper'
 import { isPro } from './config/env'
 
 const app = new Koa()
 const port = process.env.PORT || 3000
+
+// zookeeper
+handleZookeeper()
 
 // logger
 app.use(
@@ -53,7 +56,7 @@ app.use(
   })
 )
 
-// cors
+// cross-origin resource sharing
 app.use(
   cors({
     credentials: true,
@@ -97,7 +100,7 @@ app.use(async (ctx, next) => {
   await next()
 })
 
-// 403､404
+// forbidden / not found
 app.use(async (ctx, next) => {
   await next()
 
@@ -132,12 +135,10 @@ app.use(async (ctx, next) => {
 // error-handling
 process.on('uncaughtException', (err: any, origin: any) => {
   console.error(`${process.stderr.fd}, Caught exception: ${err}, Exception origin: ${origin}`)
-  raven.captureException(err)
 })
 
 process.on('unhandledRejection', (reason: any, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason)
-  raven.captureException(reason)
 })
 
 app.on('error', (err) => {
@@ -145,6 +146,8 @@ app.on('error', (err) => {
 })
 
 // listening
-app.listen(port, () => {
-  console.log(`Server running on 127.0.0.1:${port}`)
+awaitZookeeper().then(() => {
+  app.listen(port, () => {
+    console.log(`Server running on 127.0.0.1:${port}`)
+  })
 })

@@ -52,7 +52,7 @@ async function getUserInfo({ email }: GetUserInfo) {
   `
 
   // console.log(sql)
-  const [result] = await defaultMySQL.query(sql).catch((err: any) => {
+  const [[result]] = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> getUserInfo' })
   })
 
@@ -97,7 +97,7 @@ async function getBalance({ email }: GetBalance) {
   `
 
   // console.log(sql)
-  const [result] = await defaultMySQL.query(sql).catch((err: any) => {
+  const [[result]] = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> getBalance' })
   })
 
@@ -158,7 +158,7 @@ async function geTransfer({ email }: GeTransfer) {
       ORDER BY datetime DESC
     `
   // console.log(sql)
-  const result = await defaultMySQL.query(sql).catch((err: any) => {
+  const [result] = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'admin.ts -> geTransfer' })
   })
 

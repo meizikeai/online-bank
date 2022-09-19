@@ -18,7 +18,9 @@ export default class Admin {
     const result = { code: 400, message: '密码修改失败！' }
 
     try {
-      const { oldpassword, newpassword } = ctx.request.body
+      const body = ctx.request.body
+      const oldpassword = String(body.oldpassword)
+      const newpassword = String(body.newpassword)
       // console.log(authorization, oldpassword, newpassword)
 
       if (oldpassword === newpassword) {

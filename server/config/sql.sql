@@ -1,6 +1,6 @@
 -- 存放使用到的数据表
 -- 共四张表，分别users(用户信息表)、userinfo(用户资料信息表)、balance(帐户信息表)、trading(交易明细表)
-
+-- 
 -- 表4.2 users - 用户信息表
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '序列号',
@@ -31,13 +31,23 @@ insert into
 values
   (
     null,
+    '管理者',
+    'admin@bank.com',
+    2,
+    1,
+    1,
+    'JVhXVF79ethUS3/FB2STIw==',
+    'QxrdjIMpS5a/rPFTVW9Bxa9JqKv3nEJm0M3hTYz1FlKFe1RouaM5S9tjjWMFuhXT4/gGBI4f7gMQfIeziIKxJw=='
+  ),
+  (
+    null,
     '孙悟空',
     'test@bank.com',
     2,
     1,
     1,
-    'rhVcYewcGkSv1NbNLz0hrQ==',
-    'GXi/3MkfiVxfpRN+zGf7yakS+hewvsq46B7UTIur9UldYxa6M4G78nUwOeS/TOUUVtZwKHgWa2gxLOecVvB46g=='
+    'JVhXVF79ethUS3/FB2STIw==',
+    'QxrdjIMpS5a/rPFTVW9Bxa9JqKv3nEJm0M3hTYz1FlKFe1RouaM5S9tjjWMFuhXT4/gGBI4f7gMQfIeziIKxJw=='
   );
 
 -- 表4.3 userinfo - 用户资料信息表
@@ -72,13 +82,24 @@ insert into
 values
   (
     null,
+    'admin@bank.com',
+    '管理者',
+    '汉族',
+    '男',
+    '11010199812187758',
+    '13412345676',
+    '北京市朝阳区百子湾路苹果社区北区',
+    '100000'
+  ),
+  (
+    null,
     'test@bank.com',
     '孙悟空',
     '汉族',
     '男',
     '11010199812187756',
     '13412345678',
-    '北京市朝阳区百子湾路苹果社区B区',
+    '北京市朝阳区百子湾路苹果社区北区',
     '100000'
   );
 
@@ -116,9 +137,21 @@ insert into
 values
   (
     null,
-    'test@bank.com',
+    'admin@bank.com',
     '9999555599998888',
+    10000.00,
     0.00,
+    0.00,
+    0.00,
+    0.00,
+    0.00,
+    0.00
+  ),
+  (
+    null,
+    'test@bank.com',
+    '9999555599998866',
+    5000.00,
     0.00,
     0.00,
     0.00,

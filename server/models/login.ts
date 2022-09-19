@@ -13,9 +13,10 @@ async function getWhoishe({ email }: { email: string }) {
     WHERE email = '${email}'
   `
   // console.log(sql)
-  const [result] = await defaultMySQL.query(sql).catch((err: any) => {
+  const [[result]] = await defaultMySQL.query(sql).catch((err: any) => {
     logger.error(err, { tips: 'login.ts -> getWhoishe' })
   })
+  // console.log(result)
 
   return result
 }
