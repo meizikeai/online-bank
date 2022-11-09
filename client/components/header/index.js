@@ -28,7 +28,7 @@ class Header extends Component {
     return (
       <div className='bank-header'>
         <div className='logo' onClick={this.handleLogo} role='presentation'>
-          <img src='' alt='' />
+          <span />
         </div>
 
         <div className='type'>

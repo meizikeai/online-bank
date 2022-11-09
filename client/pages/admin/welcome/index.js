@@ -28,7 +28,7 @@ class App extends Component {
         <div className='bank-admin-welcome'>
           <h3>欢迎来到网上银行系统</h3>
           <p>投资有风险，入市需谨慎。中国证监会提醒您，请在法定交易场所投资，远离非法交易活动。</p>
-          <img src='' />
+          <span />
         </div>
       </LayoutAdmin>
     )

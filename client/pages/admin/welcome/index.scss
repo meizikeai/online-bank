@@ -2,4 +2,14 @@
   min-height: 600px;
   padding: 16px;
   background-color: #fff;
+
+  span {
+    display: block;
+    width: 500px;
+    height: 400px;
+    background-image: url(/img/banner-3.jpg);
+    background-size: 500px 400px;
+    background-position: left top;
+    background-repeat: no-repeat;
+  }
 }
