@@ -1,21 +1,21 @@
-import Koa from 'koa'
-import bodyParser from 'koa-bodyparser'
+import path from 'node:path'
+import koa from 'koa'
 import compress from 'koa-compress'
 import cors from '@koa/cors'
 import helmet from 'koa-helmet'
 import json from 'koa-json'
 import jsonp from 'koa-safe-jsonp'
 import koaBody from 'koa-body'
+import koaBodyParser from 'koa-bodyparser'
 import logger from 'koa-visit-logger'
-import path from 'path'
 import serve from 'koa-static'
-import views from 'koa-views'
+import views from '@ladjs/koa-views'
 
 import handleRouter from './system/control/handle-router'
 import { awaitZookeeper, handleZookeeper } from './libs/zookeeper'
 import { isPro } from './config/env'
 
-const app = new Koa()
+const app = new koa()
 const port = process.env.PORT || 3000
 
 // zookeeper
@@ -41,7 +41,7 @@ app.use(
 
 // body / files
 app.use(koaBody({ multipart: true }))
-app.use(bodyParser({ enableTypes: ['json', 'form', 'text'] }))
+app.use(koaBodyParser({ enableTypes: ['json', 'form', 'text'] }))
 
 // compress
 app.use(
@@ -148,6 +148,6 @@ app.on('error', (err) => {
 // listening
 awaitZookeeper().then(() => {
   app.listen(port, () => {
-    console.log(`Server running on 127.0.0.1:${port}`)
+    console.log(`Listen and Server running on 127.0.0.1:${port}`)
   })
 })
