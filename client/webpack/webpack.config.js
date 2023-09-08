@@ -57,12 +57,7 @@ const config = {
         test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              url: false,
-            }
-          },
+          'css-loader',
           {
             loader: 'sass-loader',
             options: {
