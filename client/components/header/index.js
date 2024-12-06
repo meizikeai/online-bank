@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Menu } from 'antd'
 
-import './index.scss'
+import './index.css'
 
 class Header extends Component {
   constructor(props) {

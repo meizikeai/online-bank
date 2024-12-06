@@ -1,0 +1,43 @@
+.bank-admin-transfer {
+  min-height: 600px;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.bank-admin-transfer .title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.bank-admin-transfer .one {
+  margin-bottom: 15px;
+  border: 1px solid #d7d7d7;
+  border-radius: 6px;
+  padding: 15px 15px 5px;
+}
+
+.bank-admin-transfer .one h4 {
+  margin-bottom: 10px;
+}
+
+.bank-admin-transfer .one h4 i {
+  display: inline-block;
+  color: #ff4d4f;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.bank-admin-transfer .one .line {
+  margin-bottom: 10px;
+}
+
+.bank-admin-transfer .one .line i {
+  display: inline-block;
+  color: #ff4d4f;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.bank-admin-transfer .submit button {
+  width: 12%;
+}

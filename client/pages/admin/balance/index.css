@@ -1,0 +1,80 @@
+.bank-admin-balance {
+  min-height: 600px;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.bank-admin-balance .title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.bank-admin-balance .box-one {
+  padding-top: 25px;
+}
+
+.bank-admin-balance .box-one .one,
+.bank-admin-balance .box-one .two {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.bank-admin-balance .box-one .one,
+.bank-admin-balance .box-one .two .aa {
+  display: block;
+  color: #666;
+}
+
+.bank-admin-balance .box-one .one,
+.bank-admin-balance .box-one .two .bb {
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.bank-admin-balance .box-one .two .bb {
+  font-size: 24px;
+}
+
+.bank-admin-balance .box-one .san {
+  display: flex;
+}
+
+.bank-admin-balance .box-one .san .three {
+  width: 50%;
+  border: 1px solid #d7d7d7;
+  border-radius: 6px;
+  padding: 15px 15px 0;
+  margin: 0 10px;
+}
+
+.bank-admin-balance .box-one .san .three .h4 {
+  font-weight: 700;
+}
+
+.bank-admin-balance .box-one .san .three ul {
+  padding-left: 0;
+}
+
+.bank-admin-balance .box-one .san .three ul li {
+  list-style: none;
+  line-height: 40px;
+  border-bottom: 1px solid #d7d7d7;
+  display: flex;
+}
+
+.bank-admin-balance .box-one .san .three ul li .type {
+  font-weight: 700;
+}
+
+.bank-admin-balance .box-one .san .three ul li.let {
+  width: 50%;
+}
+
+.bank-admin-balance .box-one .san .three ul li .rig {
+  width: 50%;
+  text-align: right;
+}
+
+.bank-admin-balance .box-one .san .three ul li:last-child {
+  border-bottom: none;
+}

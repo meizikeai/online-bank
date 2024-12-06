@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import './index.scss'
+import './index.css'
 
 export default class Header extends Component {
   constructor(props) {

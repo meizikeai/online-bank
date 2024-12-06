@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import { Layout } from 'antd'
 import 'whatwg-fetch'
 
-import Footer from '../footer'
-
-import 'antd/dist/antd.css'
+import Footer from '../footer/index.js'
 
 class APP extends Component {
   constructor() {

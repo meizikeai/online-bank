@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import { Table, Breadcrumb } from 'antd'
 
-import LayoutAdmin from '@components/layout-admin'
+import LayoutAdmin from '../../../components/layout-admin/index.js'
 
-import './index.scss'
+import './index.css'
 
 const columns = [
   {
@@ -62,7 +62,7 @@ class App extends Component {
 
     fetch('/api/admin/trading/gettrading', {
       headers: {
-        Authorization: token,
+        Authorization: `bearer ${token}`,
         'Content-Type': 'application/json',
       },
     })
@@ -102,4 +102,5 @@ class App extends Component {
   }
 }
 
-render(<App />, document.querySelector('#app'))
+const root = ReactDOM.createRoot(document.querySelector('#app'))
+root.render(<App />)

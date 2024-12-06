@@ -1,27 +1,31 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-const isDirectory = dir => {
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const isDirectory = (dir) => {
   let result = false
 
   try {
     const stat = fs.statSync(dir)
-    if (stat && stat.isDirectory()) {
+    if (stat.isDirectory()) {
       result = true
     }
   } catch (err) {
-    console.error(`"${dir}" is not a directory!`)
+    console.error(`"${dir}" is not a directory!`, err)
   }
 
   return result
 }
 
 // https://polyfill.io/v3/polyfill.min.js
-const dllPlugin = (() => {
+const plugin = (() => {
   const result = { dll: [], manifest: [] }
   const files = fs.readdirSync(path.resolve(__dirname, '../../public/dll'))
 
-  files.forEach(file => {
+  files.forEach((file) => {
     if (/.*\.dll.js$/.test(file)) {
       result.dll.push(file)
     }
@@ -33,7 +37,7 @@ const dllPlugin = (() => {
   return result
 })()
 
-const getFolder = dir => {
+const getFolder = (dir) => {
   let vessel = []
   let result = []
   const stat = isDirectory(dir)
@@ -42,7 +46,7 @@ const getFolder = dir => {
     vessel = fs.readdirSync(dir)
   }
 
-  vessel.forEach(name => {
+  vessel.forEach((name) => {
     const file = path.join(dir, name)
     const stat = isDirectory(file)
 
@@ -56,9 +60,4 @@ const getFolder = dir => {
   return result
 }
 
-module.exports = {
-  dll: dllPlugin.dll,
-  getFolder,
-  isDirectory,
-  manifest: dllPlugin.manifest,
-}
+export { plugin, getFolder, isDirectory }

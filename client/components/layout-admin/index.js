@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { Layout } from 'antd'
 import 'whatwg-fetch'
 
-import Header from '../header'
-import Footer from '../footer'
-import SiderMenu from '../sider-menu'
-
-import 'antd/dist/antd.css'
+import Header from '../header/index.js'
+import Footer from '../footer/index.js'
+import SiderMenu from '../sider-menu/index.js'
 
 class APP extends Component {
   constructor() {

@@ -26,7 +26,7 @@ const SiderMenu = ({ selectKey }) => {
 
     fetch('/api/admin/share/type', {
       headers: {
-        Authorization: token,
+        Authorization: `bearer ${token}`,
         'Content-Type': 'application/json',
       },
     })

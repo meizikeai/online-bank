@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom/client'
 
-import Layout from '@components/layout'
+import Layout from '../../components/layout/index.js'
 
-import './index.scss'
+import './index.css'
 
 class App extends Component {
   constructor(props) {
@@ -95,4 +95,5 @@ class App extends Component {
   }
 }
 
-render(<App />, document.querySelector('#app'))
+const root = ReactDOM.createRoot(document.querySelector('#app'))
+root.render(<App />)

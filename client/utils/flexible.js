@@ -1,7 +1,4 @@
-// 此文件用于templates/index.hbs
-// 达到适配手机与电脑的目的
-
-function flexible(window, document) {
+;(function flexible(window, document) {
   const { device } = window.CONFIG
   const docElement = document.documentElement
   let screenWidth = docElement.clientWidth
@@ -21,7 +18,7 @@ function flexible(window, document) {
   }
 
   if (device) {
-    document.body.style.minWidth = `980px`
+    document.body.style.minWidth = '980px'
 
     setComputerRem()
 
@@ -36,7 +33,7 @@ function flexible(window, document) {
     return false
   }
 
-  document.body.style.maxWidth = `425px`
+  document.body.style.maxWidth = '425px'
 
   setPhoneRem()
 
@@ -47,6 +44,4 @@ function flexible(window, document) {
       setPhoneRem()
     }
   })
-}
-
-export default flexible
+})(window, document)

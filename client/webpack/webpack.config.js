@@ -1,14 +1,17 @@
-const fs = require('fs')
-const path = require('path')
-const glob = require('glob')
-const webpack = require('webpack')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserPlugin = require("terser-webpack-plugin")
-const { dll, isDirectory, manifest } = require('./config')
+import fs from 'fs'
+import path from 'path'
+import webpack from 'webpack'
+import CompressionWebpackPlugin from 'compression-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackTagsPlugin from 'html-webpack-tags-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+import { fileURLToPath } from 'url'
+import { plugin, isDirectory } from './config.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const config = {
   stats: {
@@ -27,8 +30,8 @@ const config = {
       chunks: 'all',
       automaticNameDelimiter: '~',
       cacheGroups: {
-        vendors: {
-          name: 'vendors',
+        runtime: {
+          name: 'runtime',
           test: /[\\/]node_modules[\\/]/,
           priority: -10,
         },
@@ -41,48 +44,39 @@ const config = {
       },
     },
     runtimeChunk: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-      new TerserPlugin(),
-    ],
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    browsers: ['last 2 Chrome versions'],
+                  },
+                },
+              ],
+              ['@babel/preset-react'],
+            ],
+          },
+        },
       },
       {
         test: /\.(sa|sc|c)ss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              implementation: require('sass'),
-            },
-          },
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
-  externals: {
-    // jquery: 'jQuery',
-  },
-  resolve: {
-    alias: {
-      '@components': path.resolve(__dirname, '../components'),
-      '@utils': path.resolve(__dirname, '../utils'),
-    },
-    extensions: ['.js', '.jsx', '.json'],
-  },
+  externals: {},
   plugins: [
-    new webpack.IgnorePlugin({
-      resourceRegExp: /^\.\/locale$/,
-      contextRegExp: /moment$/,
-    }),
+    // new webpack.IgnorePlugin({}),
   ],
 }
 
@@ -99,9 +93,9 @@ const compressionPlugin = new CompressionWebpackPlugin({
   minRatio: 0.8,
 })
 
-const htmlWebpack = paths => {
-  const result = paths.map(data => {
-    const name = data.replace(/~/ig, '/')
+const htmlWebpack = (paths) => {
+  const result = paths.map((data) => {
+    const name = data.replace(/~/gi, '/')
     const userFile = path.resolve(__dirname, `../pages/${name}/index.hbs`)
     const defaultFile = path.resolve(__dirname, '../templates/index.hbs')
     const filter = fs.existsSync(userFile)
@@ -126,39 +120,48 @@ const htmlWebpack = paths => {
   return result
 }
 
-module.exports = (env, argv) => {
+const findEntryFile = (directory, depth) => {
+  let result = []
+
+  if (depth > 2) return result
+
+  const data = fs.readdirSync(directory, { withFileTypes: true })
+
+  for (const item of data) {
+    if (item.isFile() && item.name === 'index.js') {
+      result.push(path.join(directory, item.name))
+    } else if (item.isDirectory() && depth < 2) {
+      result = result.concat(findEntryFile(path.join(directory, item.name), depth + 1))
+    }
+  }
+
+  return result
+}
+
+export default (env, argv) => {
   const entry = {}
 
   if (env.all === 'true') {
-    const base = [
-      path.resolve(__dirname, '../pages/*/index.js'),
-      path.resolve(__dirname, '../pages/*/*/index.js'),
-    ]
+    const pathList = findEntryFile(path.resolve(__dirname, '../pages/'), 0)
 
-    base.forEach(data => {
-      const pathList = glob.sync(path.resolve(__dirname, data))
+    pathList.forEach((item) => {
+      const tplPath = `${item.split('/pages/')[1].split('/index.js')[0]}`
+      const page = tplPath.replace(/\//gi, '~')
 
-      pathList.forEach(item => {
-        const tplPath = `${item.split('/pages/')[1].split('/index.js')[0]}`
-        const page = tplPath.replace(/\//ig, '~')
-
-        entry[page] = [item]
-      })
+      entry[page] = [item]
     })
   } else {
-    const page = env.p.replace(/\//ig, '~')
+    const page = env.p.replace(/\//gi, '~')
     const dir = path.resolve(__dirname, `../pages/${env.p}`)
 
-    entry[page] = isDirectory(dir)
-      ? [`${dir}/index.js`]
-      : [`${dir}.js`]
+    entry[page] = isDirectory(dir) ? [`${dir}/index.js`] : [`${dir}.js`]
   }
 
   config.entry = entry
   config.plugins.push(miniCssPlugin)
-  config.plugins.push(...htmlWebpack(env.all === 'true' ? Object.keys(entry) : [env.p.replace(/\//ig, '~')]))
+  config.plugins.push(...htmlWebpack(env.all === 'true' ? Object.keys(entry) : [env.p.replace(/\//gi, '~')]))
 
-  dll.forEach(file => {
+  plugin.dll.forEach((file) => {
     const tags = {
       append: false,
       tags: file,
@@ -171,10 +174,12 @@ module.exports = (env, argv) => {
     config.plugins.push(new HtmlWebpackTagsPlugin(tags))
   })
 
-  manifest.forEach(file => {
-    config.plugins.push(new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, '../../public/dll', file),
-    }))
+  plugin.manifest.forEach((file) => {
+    config.plugins.push(
+      new webpack.DllReferencePlugin({
+        manifest: path.resolve(__dirname, '../../public/dll', file),
+      })
+    )
   })
 
   if (argv.mode === 'production') {
@@ -184,21 +189,13 @@ module.exports = (env, argv) => {
     // config.output.publicPath = `${cdn}/web/static/`
     config.optimization.minimize = true
     config.plugins.push(compressionPlugin)
-    // config.plugins.push( 上传至 腾讯云、阿里云、UCloud、AWS 请自行封插件 )
+    // config.plugins.push( Upload to Cloud Space, please disable the plugin yourself )
   } else {
     config.devtool = 'inline-source-map'
     config.watch = true
     config.watchOptions = {
       aggregateTimeout: 300,
-      ignored: [
-        'build',
-        'logs',
-        'node_modules',
-        'pm2',
-        'public',
-        'server',
-        'views',
-      ],
+      ignored: ['logs', 'node_modules', 'pm2', 'public', 'server', 'views'],
     }
   }
 

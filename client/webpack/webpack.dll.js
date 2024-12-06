@@ -1,19 +1,16 @@
-const path = require('path')
-const webpack = require('webpack')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
+import path from 'path'
+import webpack from 'webpack'
+import CompressionWebpackPlugin from 'compression-webpack-plugin'
+import { fileURLToPath } from 'url'
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+export default {
   mode: 'production',
   devtool: false,
   entry: {
-    vendors: [
-      'react',
-      'react-dom',
-      'react-router',
-      'react-router-dom',
-      'prop-types',
-      'whatwg-fetch',
-    ],
+    vendors: ['react', 'react-dom', 'prop-types', 'whatwg-fetch'],
   },
   output: {
     filename: '[name].[fullhash].dll.js',
@@ -26,8 +23,23 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    browsers: ['last 2 Chrome versions'],
+                  },
+                },
+              ],
+              ['@babel/preset-react'],
+            ],
+          },
+        },
       },
     ],
   },
@@ -46,7 +58,6 @@ module.exports = {
       minRatio: 0.8,
     }),
 
-    // upload cdn
-    // 上传至 腾讯云、阿里云、UCloud、AWS 请自行封插件
+    // Upload to Cloud Space, please disable the plugin yourself
   ],
 }

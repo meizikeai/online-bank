@@ -1,0 +1,37 @@
+.bank-header {
+  height: 64px;
+}
+
+.bank-header.logo {
+  width: 131px;
+  float: left;
+}
+
+.bank-header.logo span {
+  display: block;
+  width: 131px;
+  height: 64px;
+  background-image: url(http://127.0.0.1:3000/img/logo-1.png);
+  background-size: 131px 32px;
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+.type {
+  float: left;
+}
+
+.admin {
+  float: right;
+}
+
+.admin .users {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+}
+
+.admin .users span {
+  display: inline-block;
+  color: #fff;
+}

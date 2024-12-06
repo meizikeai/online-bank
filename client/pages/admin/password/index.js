@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import { LockOutlined } from '@ant-design/icons'
 import { Input, Button, message, Breadcrumb } from 'antd'
 
-import LayoutAdmin from '@components/layout-admin'
+import LayoutAdmin from '../../../components/layout-admin/index.js'
 
-import './index.scss'
+import './index.css'
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class App extends Component {
       method: 'post',
       body: JSON.stringify({ oldpassword, newpassword: onepassword }),
       headers: {
-        Authorization: token,
+        Authorization: `bearer ${token}`,
         'Content-Type': 'application/json',
       },
     })
@@ -128,4 +128,5 @@ class App extends Component {
   }
 }
 
-render(<App />, document.querySelector('#app'))
+const root = ReactDOM.createRoot(document.querySelector('#app'))
+root.render(<App />)

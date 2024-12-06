@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Layout, Input, Button, message } from 'antd'
 
-import Footer from '@components/footer'
+import Footer from '../../components/footer/index.js'
 
-import 'antd/dist/antd.css'
-import './index.scss'
+import './index.css'
 
 const rule = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/
 
@@ -171,4 +170,5 @@ class App extends Component {
   }
 }
 
-render(<App />, document.querySelector('#app'))
+const root = ReactDOM.createRoot(document.querySelector('#app'))
+root.render(<App />)
