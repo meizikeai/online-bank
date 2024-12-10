@@ -1,0 +1,15 @@
+.bank-admin-welcome {
+  min-height: 600px;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.bank-admin-welcome span {
+  display: block;
+  width: 500px;
+  height: 400px;
+  background-image: url(http://127.0.0.1:3000/img/banner-3.jpg);
+  background-size: 500px 400px;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
